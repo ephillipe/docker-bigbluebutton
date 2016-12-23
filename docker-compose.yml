@@ -19,3 +19,4 @@ bbb:
       VIRTUAL_HOST: meet.example.com
       ENABLE_WEB_RTC: "yes"
       BBB_INSTALL_DEMOS: "yes"
+  privileged: true
