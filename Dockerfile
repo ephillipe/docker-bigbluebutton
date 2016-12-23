@@ -32,12 +32,18 @@ RUN apt-get install -y tomcat7
 # Replace init script, installed one is broken
 ADD scripts/tomcat7 /etc/init.d/
 
+# http://docs.bigbluebutton.org/install/install.html#install-bigbluebutton
 # Add the BigBlueButton key
 RUN wget http://ubuntu.bigbluebutton.org/bigbluebutton.asc -O- | apt-key add -
 # Add the BigBlueButton repository URL and ensure the multiverse is enabled
 RUN echo "deb http://ubuntu.bigbluebutton.org/trusty-1-0/ bigbluebutton-trusty main" | tee /etc/apt/sources.list.d/bigbluebutton.list
 RUN apt-get -y update \
-    && apt-get install -y --allow-unauthenticated bigbluebutton
+    && apt-get install -y --allow-unauthenticated bigbluebutton \
+    && bbb-conf --enablewebrtc
+
+# http://docs.bigbluebutton.org/install/install.html#imagemagick-security-issues
+ADD ImageMagick_policy.xml /etc/ImageMagick/policy.xml
+RUN convert -list policy
 
 EXPOSE 80 9123 1935
 

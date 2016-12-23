@@ -20,24 +20,24 @@ if [ ! -z $BBB_INSTALL_DEMOS -a "$BBB_INSTALL_DEMOS" == "yes" ]; then
     echo -e "\e[92mDone.\e[0m\n"
 fi
 
-echo -e "\e[92mStarting BigBlueButton services...\e[0m"
+figlet "Starting BigBlueButton services..."
 service redis-server start
 service bbb-openoffice-headless start
-echo -e "\e[92mUpdating BigBlueButton IP address configuration...\e[0m"
 
+figlet "Updating BigBlueButton IP address configuration..."
 if [ ! -z "$SERVER_NAME" ];then
     echo -e "\n\e[92mUsing $SERVER_NAME as hostname.\e[0m"
-    #Add an entry to /etc/hosts pointing the container IP address 
+    #Add an entry to /etc/hosts pointing the container IP address
     #to $SERVER_NAME
-    printf '%s\t%s\n' $IP $SERVER_NAME | cat >> /etc/hosts    
+    printf '%s\t%s\n' $IP $SERVER_NAME | cat >> /etc/hosts
     CONTAINER_IP=$IP
     IP=$SERVER_NAME
 fi
 
-#Set new hostname
+figlet "Set new Hostmane to BBB"
 bbb-conf --setip $IP
 
-#Replace the IP address on the demo web app, it seems 
+#Replace the IP address on the demo web app, it seems
 #bbb-conf --setip doesn't do it
 echo -e "\n\e[92mChanging IP address in demo API:\e[0m $IP"
 sed -ri "s/(.*BigBlueButtonURL *= *\").*/\1http:\/\/$IP\/bigbluebutton\/\";/" /var/lib/$TOMCAT_VERSION/webapps/demo/bbb_api_conf.jsp
@@ -55,7 +55,7 @@ chown -R $TOMCAT_VERSION:$TOMCAT_VERSION /var/bigbluebutton
 
 #For some reason sometimes meetings fail when started from mconf-web
 #until we clean the installation
-echo -e "\n\e[92mCleaning configuration...\n\e[0m"
+figlet "Cleaning configuration..."
 bbb-conf --clean
 
 #echo -e "\n\e[92mChecking configuration...\n"
