@@ -9,9 +9,7 @@
 bbb:
   build: .
   ports:
-   - "80:80"
-  expose:
-  #- "80"
+  - "80:80"
   - "9123:9123"
   - "1935:1935"
   environment:
@@ -19,5 +17,5 @@ bbb:
       SERVER_SALT: 5ca422de042242086336aa041f26d79e
       MOBILE_SALT: 03b07
       VIRTUAL_HOST: meet.example.com
+      ENABLE_WEB_RTC: "yes"
       BBB_INSTALL_DEMOS: "yes"
-#  privileged: true

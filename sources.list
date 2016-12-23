@@ -1,0 +1,7 @@
+deb http://mirror.globo.com/ubuntu/archive trusty main restricted universe multiverse
+deb http://mirror.globo.com/ubuntu/archive trusty-updates main restricted universe multiverse
+deb http://mirror.globo.com/ubuntu/archive trusty-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
