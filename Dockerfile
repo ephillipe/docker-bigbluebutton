@@ -10,7 +10,7 @@ RUN apt-get -y update \
 RUN echo 'Dpkg::Progress-Fancy "1";' > /etc/apt/apt.conf.d/99progressbar
 
 # Install PPA for LibreOffice 4.4 and libsslAnchor link for: install ppa for libreoffice 44 and libssl
-RUN apt-get install -yq vim wget software-properties-common \
+RUN apt-get install -yq vim figlet wget software-properties-common \
     && add-apt-repository -y ppa:libreoffice/libreoffice-4-4 \
     && add-apt-repository -y ppa:ondrej/php \
     && apt-get update \
