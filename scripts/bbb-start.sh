@@ -20,11 +20,11 @@ if [ ! -z $BBB_INSTALL_DEMOS -a "$BBB_INSTALL_DEMOS" == "yes" ]; then
     echo -e "\e[92mDone.\e[0m\n"
 fi
 
-figlet "Starting BigBlueButton services..."
+figlet -f digital -c "Starting BigBlueButton services..."
 service redis-server start
 service bbb-openoffice-headless start
 
-figlet "Updating BigBlueButton IP address configuration..."
+figlet -f digital -c "Updating BigBlueButton IP address configuration..."
 if [ ! -z "$SERVER_NAME" ];then
     echo -e "\n\e[92mUsing $SERVER_NAME as hostname.\e[0m"
     #Add an entry to /etc/hosts pointing the container IP address
@@ -34,7 +34,7 @@ if [ ! -z "$SERVER_NAME" ];then
     IP=$SERVER_NAME
 fi
 
-figlet "Set new Hostmane to BBB"
+figlet -f digital -c "Set new Hostmane to BBB"
 bbb-conf --setip $IP
 
 #Replace the IP address on the demo web app, it seems
@@ -55,8 +55,12 @@ chown -R $TOMCAT_VERSION:$TOMCAT_VERSION /var/bigbluebutton
 
 #For some reason sometimes meetings fail when started from mconf-web
 #until we clean the installation
-figlet "Cleaning configuration..."
+figlet -f digital -c "Cleaning configuration..."
 bbb-conf --clean
+
+figlet -f digital -c "Installing HTML5 client to BBB"
+apt-get install bbb-html5
+bbb-conf --restart
 
 #echo -e "\n\e[92mChecking configuration...\n"
 #bbb-conf --check

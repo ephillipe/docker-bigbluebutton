@@ -1,22 +1,27 @@
-#nginx:
-  #image: jwilder/nginx-proxy:latest
-  #  build: nginx/
-  #  ports:
-  #    - "80:80"
-  #  volumes:
-  #    - /var/run/docker.sock:/tmp/docker.sock
+version: '2'
+services:
+  #nginx:
+    #image: jwilder/nginx-proxy:latest
+    #  build: nginx/
+    #  ports:
+    #    - "80:80"
+    #  volumes:
+    #    - /var/run/docker.sock:/tmp/docker.sock
 
-bbb:
-  build: .
-  ports:
-  - "80:80"
-  - "9123:9123"
-  - "1935:1935"
-  environment:
-      SERVER_NAME: meet.example.com
-      SERVER_SALT: 5ca422de042242086336aa041f26d79e
-      MOBILE_SALT: 03b07
-      VIRTUAL_HOST: meet.example.com
-      ENABLE_WEB_RTC: "yes"
-      BBB_INSTALL_DEMOS: "yes"
-  privileged: true
+  bbb:
+    image: bbb:1.0.0
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - "80:80"
+    - "9123:9123"
+    - "1935:1935"
+    environment:
+        SERVER_NAME: meet.example.com
+        SERVER_SALT: 5ca422de042242086336aa041f26d79e
+        MOBILE_SALT: 03b07
+        VIRTUAL_HOST: meet.example.com
+        ENABLE_WEB_RTC: "yes"
+        BBB_INSTALL_DEMOS: "yes"
+    privileged: true
